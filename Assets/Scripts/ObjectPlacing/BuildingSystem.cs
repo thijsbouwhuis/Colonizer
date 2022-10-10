@@ -12,6 +12,8 @@ public class BuildingSystem : MonoBehaviour
     private Grid grid;
     [SerializeField] private Tilemap mainTileMap;
     [SerializeField] private TileBase occupiedTile;
+    [SerializeField] private Color placingAllowedColor;
+    [SerializeField] private Color placingProhibitedColor;
 
     public GameObject pref1;
 
@@ -51,8 +53,13 @@ public class BuildingSystem : MonoBehaviour
         {
             if (target != null)
             {
-                target.transform.position = SnapCoordinateToGrid(GetMouseWorldPos());
-                target = null;
+                Vector3 pos = SnapCoordinateToGrid(GetMouseWorldPos());
+                if (target.CanBePlaced(GridManager.instance.GetGrid(), pos))
+                {
+                    target.transform.position = pos;
+                    target.OnObjectPlaced(GridManager.instance.GetGrid(), pos);
+                    DestroyTarget();
+                }
             }
         }
 
@@ -60,6 +67,11 @@ public class BuildingSystem : MonoBehaviour
         {
             Vector3 pos = SnapCoordinateToGrid(GetMouseWorldPos());
             target.transform.position = new Vector3(pos.x, target.transform.position.y, pos.z);
+
+            target.CanPlaceIndicator.material.color =
+                target.CanBePlaced(GridManager.instance.GetGrid(), pos)
+                    ? placingAllowedColor
+                    : placingProhibitedColor;
         }
     }
 

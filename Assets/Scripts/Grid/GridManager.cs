@@ -11,6 +11,13 @@ public class GridManager : MonoBehaviour
 
     private CustomGrid grid;
 
+    public static GridManager instance;
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
     private void Start()
     {
         grid = new CustomGrid(20, 20, gridComponent.cellSize);
