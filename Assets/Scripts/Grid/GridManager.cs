@@ -8,29 +8,12 @@ public class GridManager : MonoBehaviour
 {
     [SerializeField]
     private Grid gridComponent;
-    public CustomGrid grid;
 
-    Action<List<PathNode>, bool> pathResult;
+    private CustomGrid grid;
 
     private void Start()
     {
         grid = new CustomGrid(20, 20, gridComponent.cellSize);
-        pathResult += GetPathResult;
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-          Vector3 target = BuildingSystem.instance.SnapCoordinateToGrid(BuildingSystem.instance.GetMouseWorldPos());
-        }
-    }
-
-    private void GetPathResult(List<PathNode> path, bool success)
-    {
-        if (success) { Debug.Log("Path found successfully");}
-        if (!success) { Debug.Log("Couldn't find a path properly.");}
-        int x = 01;
     }
     public CustomGrid GetGrid()
     {
