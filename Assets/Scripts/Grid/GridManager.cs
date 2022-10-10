@@ -23,7 +23,6 @@ public class GridManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
           Vector3 target = BuildingSystem.instance.SnapCoordinateToGrid(BuildingSystem.instance.GetMouseWorldPos());
-          PathRequestManager.RequestPath(new PathRequest(new Vector2Int(0, 0), new Vector2Int((int)target.x, (int)target.z), pathResult));
         }
     }
 

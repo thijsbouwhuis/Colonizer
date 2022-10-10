@@ -18,7 +18,7 @@ public class Pathfinder : MonoBehaviour
 
 
 
-    public void FindPath(PathRequest request, Action<List<PathNode>, PathRequest, bool> callBack)
+    public void FindPath(PathRequest request, Action<Queue<PathNode>, PathRequest, bool> callBack)
     {
         CustomGrid grid = gridManager.GetGrid();
         PathNode startNode = gridManager.GetGrid().GetTile(request.Start.x, request.Start.y).GetPathNode();
@@ -71,7 +71,7 @@ public class Pathfinder : MonoBehaviour
         callBack(null, request, false);
     }
 
-    List<PathNode> RetracePath(PathNode startNode, PathNode endNode)
+    Queue<PathNode> RetracePath(PathNode startNode, PathNode endNode)
     {
         List<PathNode> path = new List<PathNode>();
         PathNode cur = endNode;
@@ -90,7 +90,7 @@ public class Pathfinder : MonoBehaviour
             Debug.DrawLine(new Vector3(waypoints[i].GetX() + 0.5f, 0.1f, waypoints[i].GetY() + 0.5f) , new Vector3(waypoints[i + 1].GetX() + 0.5f, 0.1f, waypoints[i + 1].GetY() + 0.5f), Color.blue, 5f);
         }
 
-        return waypoints;
+        return new Queue<PathNode>(waypoints);
     }
 
     List<PathNode> SimplifyPath(List<PathNode> path)

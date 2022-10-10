@@ -36,7 +36,7 @@ public class PathRequestManager : MonoBehaviour
         threadStart.Invoke();
     }
 
-    private void FinishProcessingPath(List<PathNode> path, PathRequest pathRequest, bool success)
+    private void FinishProcessingPath(Queue<PathNode> path, PathRequest pathRequest, bool success)
     {
         
         lock (pathResults)
