@@ -35,7 +35,7 @@ public class CustomGrid
             for (int z = 0; z < height; z++)
             {
                 gridArr[x, z] = new Tile(x, z);
-                gridArr[x, z].walkable = Random.Range(1, 5) != 1;
+               // gridArr[x, z].walkable = Random.Range(1, 5) != 1;
                 CreateWorldText(gridArr[x, z].ToString(), null, GetWorldPosition(x, z) + new Vector3(cellSize.x, 0, cellSize.y) / 2, 8, gridArr[x, z].walkable ? Color.green : Color.red, TextAnchor.MiddleCenter);
                 Debug.DrawLine(GetWorldPosition(x, z), GetWorldPosition(x, z + 1), gridArr[x, z].walkable ? Color.green : Color.red, 1000f);
                 Debug.DrawLine(GetWorldPosition(x, z), GetWorldPosition(x + 1, z), gridArr[x, z].walkable ? Color.green : Color.red, 1000f);
@@ -56,6 +56,8 @@ public class CustomGrid
 
     public Tile GetTile(int x, int z)
     {
+        if (x < 0 || z < 0 || x >= width || z >= height) { return null;} 
+        
         return gridArr[x, z];
     }
     

@@ -45,7 +45,11 @@ public class Pathfinder : MonoBehaviour
                 return;
             }
 
-            foreach (Tile neighbour in grid.GetMovableNeighbourTiles(grid.GetTile(cur.GetX(), cur.GetY())))
+            Tile curTile = grid.GetTile(cur.GetX(), cur.GetY());
+            
+            if (curTile == null) { continue;}
+            
+            foreach (Tile neighbour in grid.GetMovableNeighbourTiles(curTile))
             {
                 PathNode neighbourNode = neighbour.GetPathNode();
                 if (!neighbourNode.IsWalkable() || closedSet.Contains(neighbourNode)) { continue; }

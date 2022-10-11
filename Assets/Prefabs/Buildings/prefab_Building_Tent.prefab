@@ -45,6 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27c135ec6f76ade439fdc141132f6539, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unwalkableNodes:
+  - {x: 0, y: 0}
+  - {x: 0, y: -1}
 --- !u!1 &6920092479084320561
 GameObject:
   m_ObjectHideFlags: 0
