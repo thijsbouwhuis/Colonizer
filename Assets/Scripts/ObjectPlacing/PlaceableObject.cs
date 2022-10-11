@@ -14,14 +14,14 @@ public class PlaceableObject : MonoBehaviour
         //Inverse this because grid has Z as X and X as Z
         GameObject building = Instantiate(objectToPlace);
         building.transform.position = pos;
-        building.GetComponent<Building>().OnBuildingPlaced(grid, pos);
+        building.GetComponent<ConstructionBuilding>().OnBuildingPlaced(grid, pos);
     }
 
     public bool CanBePlaced(CustomGrid grid, Vector3 pos)
     {
         if (pos.x < 0 || pos.z < 0) { return false;}
         
-        foreach (Vector2Int tile in objectToPlace.GetComponent<Building>().UnwalkableNodes)
+        foreach (Vector2Int tile in objectToPlace.GetComponent<ConstructionBuilding>().UnwalkableNodes)
         {
             Tile curTile = grid.GetTile((int) pos.x + tile.y, (int) pos.z + tile.x);
             if (curTile == null) { return false;}

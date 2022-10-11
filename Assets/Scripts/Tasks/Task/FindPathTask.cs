@@ -17,6 +17,8 @@ public class FindPathTask : TaskBase
         this.maxMoveSpeed = maxMoveSpeed;
         this.start = start;
         this.end = end;
+        this.callback = callback;
+        
         pathRequestCallback += OnPathRequestCallback;
     }
     
@@ -36,14 +38,9 @@ public class FindPathTask : TaskBase
             
         //Move along path
         if (curTarget != null) { MoveTo(curTarget); }
-
-        if (curTarget == null && curPath.Count <= 0)
-        {
-            OnTaskFinished();
-        }
     }
 
-    public override void OnTaskFinished()
+    protected override void OnTaskFinished()
     {
         base.OnTaskFinished();
         Debug.Log("Arrived At Destination");
@@ -66,6 +63,11 @@ public class FindPathTask : TaskBase
         {
             manager.gameObject.transform.position = targetDestination;
             curTarget = null;
+            
+            if (curPath.Count <= 0)
+            {
+                OnTaskFinished();
+            }
         }
     }
 }

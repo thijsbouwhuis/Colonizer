@@ -3,10 +3,8 @@ using UnityEngine;
 
 public class UnitTaskManager : MonoBehaviour
 {
-    [SerializeField]
-    private List<TaskBase> tasks = new List<TaskBase>();
+    [SerializeField] private List<TaskBase> tasks = new List<TaskBase>();
     private TaskBase curTask;
-    private TaskBase curSubTask;
 
     private void Start()
     {
@@ -24,36 +22,27 @@ public class UnitTaskManager : MonoBehaviour
         tasks.Remove(task);
     }
 
-    public void OnCurTaskFinished()
+    public void OnTaskFinished(TaskBase task)
     {
-        curTask = null;
+        //if it's not the same, then it's the current task of the subtask and we don't do anything with it
+        if (curTask == task)
+        {
+            curTask = null;
+        }
     }
     
-    public void SetSubTask(TaskBase task)
-    {
-        curSubTask = task;
-        curSubTask.StartTask();
-    }
-
     public void Tick()
     {
-        if (curSubTask != null)
+        //Update cur task
+        if (curTask != null)
         {
-            curSubTask.UpdateTask();
+            curTask.UpdateTask();
         }
-        else
+        else if (tasks.Count > 0)
         {
-            //Update cur task
-            if (curTask != null)
-            {
-                curTask.UpdateTask();
-            }
-            else if (tasks.Count > 0)
-            {
-                curTask = tasks[0];
-                tasks.RemoveAt(0);
-                curTask.StartTask();
-            }
+            curTask = tasks[0];
+            tasks.RemoveAt(0);
+            curTask.StartTask();
         }
     }
 }
